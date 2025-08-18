@@ -1,0 +1,17 @@
+name: 'scooters_dbt'
+version: '1.0.0'
+profile: 'scooters_dbt'
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+clean-targets:        
+  - "target"
+  - "dbt_packages"
+models:
+  scooters_dbt:
+    # Config indicated by + and applies to all files under models/example/
+    example:
+      +materialized: view
