@@ -4,10 +4,10 @@ scooters_dbt:
     dev:
       type: clickhouse
       schema: dev
-      host: 89.169.143.55
+      database: dev
+      host: 158.160.41.141
       port: 8123  # If not set, defaults to 8123, 8443, 9000, 9440 depending on the secure and driver settings 
       user: default # User for all database operations
       password: ksenja # Password for the user
       secure: False
-      database: dev
-      cluster: default
+      threads: 2

@@ -12,6 +12,13 @@ clean-targets:
   - "dbt_packages"
 models:
   scooters_dbt:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    +materialized: "table"
+    +on_schema_change: "append_new_columns"
+    +persist_docs:
+      relation: true
+      columns: true
+seeds:
+  scooters_dbt:
+    +persist_docs:
+      relation: true
+      columns: true

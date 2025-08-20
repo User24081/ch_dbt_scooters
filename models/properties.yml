@@ -1,0 +1,70 @@
+sources:
+  - name: "dev"
+    description: "Дата сет по поздкам по скутерам"
+    loader: "скрыто пользователем =)"
+    tables:
+      - name: "trips"
+        description: "данные по поездкам на скутерах"
+      - name: "users"
+        description: "данные по пользователям"
+      - name: "events"
+        description: "Необработанные пользовательские события с дубликатами"
+
+models:      
+      - name: "trips_prep"
+        description: "Поездки для анализа"
+        config:
+          materialized: "view"
+      - name: "trips_stat"
+        description: "Обобщенная статистика поездок"
+        config:
+          materialized: "table"
+      - name: "trips_stat_daily"
+        description: "Обобщенная статистика поездок за день"
+        config:
+          materialized: "table"
+      - name: "trips_age_daily"
+        description: "Статистика ежендевных поездок по возрастам"
+        config:
+          materialized: "table"
+
+      - name: "trips_age_daily_stat"
+        description: "Агрегация статистики ежендевных поездок по возрастам"
+        config:
+          materialized: "table"
+      - name: "trips_users"
+        description: "Подготовленные данные по поездкам, обогащенные данными по пользователям"
+        config:
+          materialized: "incremental"
+      - name: "events_clean"
+        description: "Пользовательские события без дубликатов"
+        config:
+          materialized: "incremental"
+      - name: "revenue_daily"
+        description: "Сводный ежедневный доход"
+        config:
+          materialized: "incremental" 
+          strategy: "merge"
+          unique_key: [ "date" ]
+          on_schema_change: "append_new_columns"
+          full_refresh: false
+      - name: "trips_concurrency"
+        description: "Количество одновременных поездок во времени"
+        config:
+          materialized: "incremental"
+      - name: "companies"
+        description: "Статиска скутеров по компаниям"
+      - name: "companies_trips"
+        description: "Статистика поездок по компаниям"
+      - name: "events_full"
+        description: "События по пользователям обогащенные данными по событиям в мобильном приложении"
+        config:
+          materialized: "view"
+      - name: "events_stat"
+        description: "Общая статистика пользовательских событий"
+        config:
+          materialized: "table"
+      - name: "trips_age_group"
+        description: "Общая статистика поездок по возрастным группам пользователей"
+        config:
+          materialized: "table"
